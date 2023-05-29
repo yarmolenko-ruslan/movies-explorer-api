@@ -8,9 +8,9 @@ const {
 } = require('../controllers/movie');
 
 // возвращает все фильмы данного пользователя
-router.get('/movies/', getMovies);
+router.get('/', getMovies);
 // создает фильм
-router.post('/movies/', celebrate({
+router.post('/', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),

@@ -9,7 +9,8 @@ const { PORT, MONGOOSE_URL } = require('./tokenValue');
 const iternalServerError = require('./errors/iternalServerError');
 
 const { NOT_FOUND_ERROR } = require('./errors/notFoundError');
-const { auth } = require('./middlewares/auth');
+// const { auth } = require('./middlewares/auth');
+const router = require('./routes/index');
 const { cors } = require('./middlewares/cors');
 const { limiter } = require('./utils/rateLimit');
 
@@ -23,9 +24,11 @@ app.use(limiter);
 app.use(cors);
 app.use(require('./routes/login'));
 
-app.use(auth);
-app.use(require('./routes/movie'));
-app.use(require('./routes/user'));
+app.use(router);
+
+// app.use(auth);
+// app.use(require('./routes/movie'));
+// app.use(require('./routes/user'));
 
 app.use((req, res, next) => {
   next(new NOT_FOUND_ERROR('Запрашиваемый ресурс не найден'));
