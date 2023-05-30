@@ -23,3 +23,5 @@
 `npm run start` — запускает сервер
 
 `npm run dev` — запускает сервер с hot-reload (режим для разработчиков)
+
+Backend https://api.movies.explorer.nomoredomains.rocks

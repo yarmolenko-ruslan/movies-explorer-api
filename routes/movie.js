@@ -7,21 +7,23 @@ const {
   deleteMovie,
 } = require('../controllers/movie');
 
+const standardValidationTemplate = Joi.string().required();
+
 // возвращает все фильмы данного пользователя
 router.get('/', getMovies);
 // создает фильм
 router.post('/', celebrate({
   body: Joi.object().keys({
-    country: Joi.string().required(),
-    director: Joi.string().required(),
+    country: standardValidationTemplate,
+    director: standardValidationTemplate,
     duration: Joi.number().required(),
-    year: Joi.string().required(),
-    description: Joi.string().required(),
-    image: Joi.string().required().pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
-    trailerLink: Joi.string().required().pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
-    nameRU: Joi.string().required(),
-    nameEN: Joi.string().required(),
-    thumbnail: Joi.string().required().pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
+    year: standardValidationTemplate,
+    description: standardValidationTemplate,
+    image: standardValidationTemplate.pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
+    trailerLink: standardValidationTemplate.pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
+    nameRU: standardValidationTemplate,
+    nameEN: standardValidationTemplate,
+    thumbnail: standardValidationTemplate.pattern(/https?:\/\/(www\.)?([\w-]+\.)+\w+[\w\-._~:/?#[\]@!$&'()*,;=]*/),
     movieId: Joi.number().required(),
   }),
 }), createMovie);
@@ -30,7 +32,7 @@ router.delete(
   '/movies/:_id',
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().required().hex().length(24),
+      cardId: standardValidationTemplate.hex().length(24),
     }),
   }),
   deleteMovie,

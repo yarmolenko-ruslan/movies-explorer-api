@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { errorMessage } = require('../utils/errorMessage');
 const { NOT_FOUND_ERROR } = require('../errors/notFoundError');
-const { JWT_STORAGE_TIME, SALT_LENGTH, JWT_SECRET } = require('../tokenValue');
+const { JWT_STORAGE_TIME, SALT_LENGTH, JWT_SECRET } = require('../devConfig');
 const { CREATED, OK } = require('../utils/successes');
 
 // получить текущего пользователя
@@ -36,7 +36,7 @@ const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
   bcrypt
-    .hash(password, SALT_LENGTH)
+    .hash(password, process.env.SALT_LENGTH || SALT_LENGTH)
     .then((hash) => User.create({
       name,
       email,
@@ -52,8 +52,8 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-        expiresIn: JWT_STORAGE_TIME,
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || JWT_SECRET, {
+        expiresIn: process.env.JWT_STORAGE_TIME || JWT_STORAGE_TIME,
       });
       res.send({ jwt: token });
     })
