@@ -1,5 +1,5 @@
 const Movie = require('../models/movie');
-const { errorMessage } = require('../utils/errorMessage');
+const { handlerMessageError } = require('../utils/handlerMessageError');
 const { NOT_FOUND_ERROR } = require('../errors/notFoundError');
 const { FORBIDDEN_ERROR } = require('../errors/forbiddenError');
 const { CREATED } = require('../utils/successes');
@@ -8,8 +8,8 @@ const { CREATED } = require('../utils/successes');
 const getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
     .sort({ createdAt: -1 })
-    .then((movie) => res.send({ data: movie }))
-    .catch((err) => errorMessage(err, req, res, next));
+    .then((movies) => res.send({ data: movies }))
+    .catch((err) => handlerMessageError(err, req, res, next));
 };
 // создает новые с фильмами
 const createMovie = (req, res, next) => {
@@ -43,7 +43,7 @@ const createMovie = (req, res, next) => {
     owner: ownerId,
   })
     .then((movie) => res.status(CREATED).send({ data: movie }))
-    .catch((err) => errorMessage(err, req, res, next));
+    .catch((err) => handlerMessageError(err, req, res, next));
 };
 // удаляет фильм
 const deleteMovie = (req, res, next) => {
@@ -58,7 +58,7 @@ const deleteMovie = (req, res, next) => {
       return movie.findByIdAndRemove(req.params._id);
     })
     .then((movie) => res.send({ data: movie }))
-    .catch((err) => errorMessage(err, req, res, next));
+    .catch((err) => handlerMessageError(err, req, res, next));
 };
 
 module.exports = {

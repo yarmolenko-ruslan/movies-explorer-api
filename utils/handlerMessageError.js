@@ -1,7 +1,7 @@
 const { BAD_REQUEST_ERROR } = require('../errors/badRequestError');
 const { CONFLICT_ERROR } = require('../errors/conflictError');
 
-const errorMessage = (err, req, res, next) => {
+const hendlerMessageError = (err, req, res, next) => {
   if (err.name === 'CastError') {
     return next(new BAD_REQUEST_ERROR('Неверный запрос или данные'));
   }
@@ -17,4 +17,4 @@ const errorMessage = (err, req, res, next) => {
   return next(err);
 };
 
-module.exports = { errorMessage };
+module.exports = { hendlerMessageError };
