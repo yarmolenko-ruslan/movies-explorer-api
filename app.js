@@ -28,9 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use(errorLogger);
-
 app.use(errors());
-
 app.use(iternalServerError);
 
 async function main() {

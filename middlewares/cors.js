@@ -1,4 +1,9 @@
-const allowedCors = require('../config');
+const allowedCors = [
+  'https://movies.explorer.nomoredomains.rocks',
+  'http://movies.explorer.nomoredomains.rocks',
+  'http://localhost:3000',
+  'https://localhost:3000',
+];
 
 const cors = (req, res, next) => {
   const { origin } = req.headers;

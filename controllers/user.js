@@ -36,7 +36,7 @@ const createUser = (req, res, next) => {
   const { name, email, password } = req.body;
 
   bcrypt
-    .hash(password, SALT_LENGTH || process.env.SALT_LENGTH)
+    .hash(password, SALT_LENGTH)
     .then((hash) => User.create({
       name,
       email,
@@ -52,13 +52,17 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || JWT_SECRET, {
-        expiresIn: process.env.JWT_STORAGE_TIME || JWT_STORAGE_TIME,
+        expiresIn: JWT_STORAGE_TIME,
       });
       res.send({ jwt: token });
     })
     .catch(next);
 };
 
-module.exports = {
-  getUser, patchUser, createUser, login,
-};
+function logout(req, res) {
+  res
+  .clearCookie('jwt')
+  .end();
+}
+
+module.exports = { getUser, patchUser, createUser, login, logout };
