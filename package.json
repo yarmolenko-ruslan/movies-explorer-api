@@ -1,0 +1,43 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Api for the movie selection project",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarmolenko-ruslan/movies-explorer-api"
+  },
+  "keywords": [
+    "movies-explorer-api"
+  ],
+  "author": "Yarmolenko Ruslan",
+  "license": "ISC",
+  "bugs": {
+    "url": "git+https://github.com/yarmolenko-ruslan/movies-explorer-api#readme"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "celebrate": "^15.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-rate-limit": "^6.6.0",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.0",
+    "validator": "^13.7.0",
+    "winston": "^3.8.1"
+  }
+}
